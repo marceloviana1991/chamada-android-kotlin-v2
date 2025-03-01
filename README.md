@@ -5,13 +5,13 @@ Aplicação desenvolvida em tecnologia Android Kotlin, que implementa sistema de
 - API 35 do SDK do Android
 
 ## Tela principal
-![principal](prints/principal.jpg){width=50%}
+<img src="prints/principal.jpg" style="width: 35%; height: auto;">
 
 ## Caixa de diálogo(CD) do formulário adicionar
-![adicionar](prints/cd-form-adicionar.jpg)
+<img src="prints/cd-form-adicionar.jpg" style="width: 35%; height: auto;">
 
 ## CD confirmação de exclusão
-![excluir](prints/cd-excluir.jpg)
+<img src="prints/cd-excluir.jpg" style="width: 35%; height: auto;">
 
 ## CD confirmação de cadastro de chamada
-![confirmar](prints/cd-confirmar.jpg)
+<img src="prints/cd-confirmar.jpg" style="width: 35%; height: auto;">
