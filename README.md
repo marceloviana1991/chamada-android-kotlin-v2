@@ -1,5 +1,3 @@
-![banner](assets/banner.png)
-
 # Lista de Chamada
 
 Aplicação desenvolvida em tecnologia Android Kotlin, que implementa sistema de gerenciamento de lista de presença.
