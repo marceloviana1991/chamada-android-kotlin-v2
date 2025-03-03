@@ -1,4 +1,4 @@
-![Thumbnail](github.png)
+![banner](assets/banner.png)
 
 # Lista de Chamada
 
