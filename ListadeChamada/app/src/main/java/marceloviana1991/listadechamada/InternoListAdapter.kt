@@ -8,16 +8,16 @@ import android.view.ViewGroup
 import android.widget.Switch
 import android.widget.TextView
 import androidx.appcompat.app.AlertDialog
+import androidx.lifecycle.viewmodel.CreationExtras
 import androidx.recyclerview.widget.RecyclerView
-import marceloviana1991.listadechamada.data.FaltaMock
-import marceloviana1991.listadechamada.data.InternoMock
+import marceloviana1991.listadechamada.data.InternoRepository
 import marceloviana1991.listadechamada.databinding.RowInternoListBinding
 import marceloviana1991.listadechamada.model.Interno
 
 class InternoListAdapter(
     private val context: Context,
-    listaInternosRecebida: List<Interno>,
-    var quandoExclui: () -> Unit = {}
+    listaInternosRecebida: List<Interno> = emptyList(),
+    var quandoExclui: (id: Int) -> Unit = {}
 ): RecyclerView.Adapter<InternoListAdapter.InternoViewHolder>() {
 
     val listaInternos = listaInternosRecebida.toMutableList()
@@ -43,8 +43,7 @@ class InternoListAdapter(
     override fun onBindViewHolder(holder: InternoViewHolder, position: Int) {
         val interno = listaInternos[position]
         holder.textView.setText(interno.nome)
-        val faltas = FaltaMock.listaFaltas.map { it.interno }.count { it == interno }
-        holder.textViewFaltas.setText("Faltas: $faltas")
+        holder.textViewFaltas.setText("Faltas: ${interno.faltas}")
         holder.switch.setOnCheckedChangeListener { _, isChecked ->
             if (isChecked) {
                 listaFaltas.remove(interno)
@@ -60,9 +59,8 @@ class InternoListAdapter(
                 .setTitle("Excluir interno")
                 .setMessage("Deseja excluir o interno ${interno.nome}")
                 .setPositiveButton("CONFIRMAR") { _, _ ->
-                    InternoMock.listaInternos.remove(interno)
                     listaInternos.remove(interno)
-                    quandoExclui()
+                    quandoExclui(interno.id)
                 }
                 .setNegativeButton("CANCELAR") { _, _ ->
 
