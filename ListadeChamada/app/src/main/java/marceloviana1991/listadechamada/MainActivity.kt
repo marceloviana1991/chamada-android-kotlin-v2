@@ -73,30 +73,33 @@ class MainActivity : AppCompatActivity() {
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        when(item.itemId) {
+        when (item.itemId) {
             R.id.menu_adicionar -> {
                 val editText = EditText(this)
-                AlertDialog.Builder(this)
+                val alertDialog = AlertDialog.Builder(this)
                     .setTitle("Adicionar interno")
                     .setMessage("Informe o nome do interno que deseja cadastrar")
                     .setView(editText)
-                    .setPositiveButton("CONFIRMAR") { _, _ ->
-                        if (editText.text.toString().isNotBlank()) {
-                            repository.addInterno(Interno(
-                                nome=editText.text.toString(), faltas=0))
-                            adapter.atualiza(repository.getInternos())
-                        } else {
-                            Toast.makeText(
-                                this,
-                                "Insira o nome que deseja cadastrar",
-                                Toast.LENGTH_SHORT)
-                                .show()
-                        }
-                    }
-                    .setNegativeButton("CANCELAR") { _, _ ->
+                    .setNegativeButton("CANCELAR") { dialog, _ -> dialog.dismiss() }
+                    .create()
 
+                alertDialog.setButton(AlertDialog.BUTTON_POSITIVE, "CONFIRMAR") { _, _ -> }
+                alertDialog.show()
+
+                alertDialog.getButton(AlertDialog.BUTTON_POSITIVE).setOnClickListener {
+                    val nome = editText.text.toString().trim()
+                    if (nome.isNotBlank()) {
+                        repository.addInterno(Interno(nome = nome, faltas = 0))
+                        adapter.atualiza(repository.getInternos())
+                        alertDialog.dismiss()
+                    } else {
+                        Toast.makeText(
+                            this,
+                            "Insira o nome que deseja cadastrar",
+                            Toast.LENGTH_SHORT
+                        ).show()
                     }
-                    .show()
+                }
             }
         }
         return super.onOptionsItemSelected(item)
